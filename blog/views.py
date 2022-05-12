@@ -2,10 +2,18 @@
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView # новое
 from django.urls import reverse_lazy # импортируем новые методы
-
+from django.shortcuts import render
+from .forms import QuillPostForm
 from .models import Post
+from django import forms
+from .models import QuillPost
 
-
+class QuillPostForm(forms.ModelForm):
+    class Meta:
+        model = QuillPost
+        fields = (
+            'content',
+        )
 class BlogListView(ListView):
     model = Post
     template_name = 'home.html'
@@ -32,3 +40,5 @@ class BlogDeleteView(DeleteView): # Создание нового класса
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('home')
+def model_form_view(request):
+    return render(request, 'form_view.html', {'form': QuillPostForm()})
