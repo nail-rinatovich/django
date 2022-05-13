@@ -7,7 +7,7 @@ from .forms import QuillPostForm
 from .models import Post
 from django import forms
 from .models import QuillPost
-
+from .models import Post, Category
 class QuillPostForm(forms.ModelForm):
     class Meta:
         model = QuillPost
@@ -40,5 +40,21 @@ class BlogDeleteView(DeleteView): # Создание нового класса
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('home')
-def model_form_view(request):
-    return render(request, 'form_view.html', {'form': QuillPostForm()})
+class CategoryListView(ListView):
+    model = Category
+    template_name = "category_list.html"
+
+
+class PostByCategoryView(ListView):
+    context_object_name = 'posts'
+    template_name = 'post_list.html'
+
+    def get_queryset(self):
+        self.category = Category.objects.get(slug=self.kwargs['slug'])
+        queryset = Post.objects.filter(category=self.category)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.category
+        return context
