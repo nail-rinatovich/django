@@ -1,9 +1,8 @@
 from django import forms
-from .models import QuillPost
+from .models import Post
 
-class QuillPostForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
+
     class Meta:
-        model = QuillPost
-        fields = (
-            'content',
-        )
+        model = Post
+        fields = ['title', 'cover']

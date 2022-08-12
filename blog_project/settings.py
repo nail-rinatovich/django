@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'mptt',
     'blog.apps.BlogConfig',
     'accounts.apps.AccountsConfig',
-    'django_quill',
     'django_mptt_admin',
 ]
 
@@ -112,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -127,5 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home' # Новое изменение
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/login/'
+LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/login/' # Новое изменение
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

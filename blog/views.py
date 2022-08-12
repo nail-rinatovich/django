@@ -3,20 +3,12 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView # новое
 from django.urls import reverse_lazy # импортируем новые методы
 from django.shortcuts import render
-from .forms import QuillPostForm
-from .models import Post
 from django import forms
-from .models import QuillPost
 from .models import Post, Category
-class QuillPostForm(forms.ModelForm):
-    class Meta:
-        model = QuillPost
-        fields = (
-            'content',
-        )
+
 class BlogListView(ListView):
     model = Post
-    template_name = 'home.html'
+    template_name = 'category-list.html'
 
 
 class BlogDetailView(DetailView):
@@ -27,19 +19,19 @@ class BlogDetailView(DetailView):
 class BlogCreateView(CreateView):
     model = Post
     template_name = 'post_new.html'
-    fields = ['title', 'author', 'body']
+    fields = ['title', 'content']
 
 
 class BlogUpdateView(UpdateView):
     model = Post
     template_name = 'post_edit.html'
-    fields = ['title', 'body']
+    fields = ['title', 'content']
 
 
 class BlogDeleteView(DeleteView): # Создание нового класса
     model = Post
     template_name = 'post_delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('category-list.html')
 class CategoryListView(ListView):
     model = Category
     template_name = "category_list.html"

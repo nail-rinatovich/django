@@ -1,7 +1,9 @@
 # blog/urls.py
-from django.urls import path
+from django.urls import path, include
 from django.contrib import admin
 from blog.views import CategoryListView, PostByCategoryView
+from django.conf.urls.static import static
+from django.conf import settings # new
 from .views import (
     BlogListView,
     BlogUpdateView,
@@ -21,3 +23,5 @@ urlpatterns = [
     path('', CategoryListView.as_view(), name='category-list'),
     path('<str:slug>/', PostByCategoryView.as_view(), name='post-by-category'),
     ]
+if settings.DEBUG: # new
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

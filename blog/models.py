@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse # Новый импорт
-from django_quill.fields import QuillField
 from mptt.models import MPTTModel, TreeForeignKey
 
 class Post(models.Model):
@@ -8,7 +7,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=150)
     category = TreeForeignKey('Category', on_delete=models.PROTECT, related_name='posts', verbose_name='Категория')
     content = models.TextField(verbose_name='Содержание')
-
+    cover = models.ImageField(upload_to='images/')
     def __str__(self):
         return self.title
 
@@ -38,8 +37,3 @@ class Category(MPTTModel):
 class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='категория')
     # другие поля ....
-
-
-class QuillPost(models.Model):
-
-    content = QuillField()

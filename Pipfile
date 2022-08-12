@@ -4,6 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pillow = "*"
+django-mptt = "*"
+django-quill = "*"
+django-mptt-admin = "*"
 
 [dev-packages]
 
